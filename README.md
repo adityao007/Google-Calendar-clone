@@ -90,7 +90,7 @@ google-calendar-clone/
 
 1. **Clone and install dependencies**
    ```bash
-   git clone https://github.com/adityao007/google-calendar-clone.git
+   git clone https://github.com/adityao007/Google-Calendar-clone.git
    cd google-calendar-clone
    npm run install-all
    ```

@@ -1,6 +1,6 @@
 # Google Calendar Clone
 
-A high-fidelity fullstack clone of Google Calendar built with React and Node.js. Features monthly, weekly, and daily views with smooth animations and complete event management.
+A fullstack clone of Google Calendar built with React and Node.js. Features monthly, weekly, and daily views with smooth animations and complete event management.
 
 ## 🎯 Features
 
@@ -90,7 +90,7 @@ google-calendar-clone/
 
 1. **Clone and install dependencies**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/adityao007/google-calendar-clone.git
    cd google-calendar-clone
    npm run install-all
    ```
@@ -102,19 +102,11 @@ google-calendar-clone/
 
 2. **Set up MongoDB**
    
-   **Option A - Local MongoDB:**
+   ** Local MongoDB:**
    - Install and start MongoDB locally
    - Default connection: `mongodb://localhost:27017/google-calendar-clone`
    - No configuration file needed
 
-   **Option B - MongoDB Atlas:**
-   - Create MongoDB Atlas account and get connection string
-   - Create environment file at `/server/.env`:
-     ```
-     PORT=5001
-     MONGODB_URI=your_mongodb_atlas_connection_string
-     CLIENT_URL=http://localhost:3000
-     ```
 
 3. **Run the application**
    
@@ -296,11 +288,3 @@ User Action → Component → App.js → API Service → Backend → MongoDB →
 - **UI Enhancements**: Gradient backgrounds, enhanced shadows, backdrop blur effects
 - **Interactions**: Shimmer animations, smooth hover effects, better button styles
 - **Code Quality**: Improved validation, better error handling, removed deprecated options
-
-## 📄 License
-
-MIT License
-
----
-
-**Note**: This is an educational clone project. Ensure MongoDB is configured before running.

@@ -23,10 +23,12 @@ const CalendarHeader = ({
   onToday,
   onMenuToggle,
   onDateChange,
-  isSidebarOpen = true
+  isSidebarOpen = true,
+  onSearchChange
 }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef(null);
 
   /**
    * Get formatted title based on current view
@@ -255,7 +257,13 @@ const CalendarHeader = ({
                 className="search-input"
                 placeholder="Search events"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearchQuery(value);
+                  if (onSearchChange) {
+                    onSearchChange(value);
+                  }
+                }}
                 autoFocus
                 onBlur={() => {
                   if (!searchQuery) {
@@ -267,7 +275,12 @@ const CalendarHeader = ({
               {searchQuery && (
                 <button 
                   className="search-clear"
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => {
+                    setSearchQuery('');
+                    if (onSearchChange) {
+                      onSearchChange('');
+                    }
+                  }}
                   aria-label="Clear search"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -279,7 +292,15 @@ const CalendarHeader = ({
           ) : (
             <button 
               className="search-button"
-              onClick={() => setIsSearchOpen(true)}
+              onClick={() => {
+                setIsSearchOpen(true);
+                // Focus input after state update
+                setTimeout(() => {
+                  if (searchInputRef.current) {
+                    searchInputRef.current.focus();
+                  }
+                }, 0);
+              }}
               aria-label="Search"
             >
               <FaSearch />

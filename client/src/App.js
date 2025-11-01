@@ -34,6 +34,8 @@ function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState('month');
   const [events, setEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]); // Store all fetched events
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -81,7 +83,7 @@ function App() {
       }
 
       const fetchedEvents = await eventService.getEvents(startDate, endDate);
-      setEvents(fetchedEvents);
+      setAllEvents(fetchedEvents);
     } catch (error) {
       console.error('Error fetching events:', error);
       showNotification('Failed to load events. Please try again.', 'error');
@@ -94,6 +96,29 @@ function App() {
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
+
+  /**
+   * Filter events based on search query
+   */
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setEvents(allEvents);
+      return;
+    }
+
+    const query = searchQuery.toLowerCase().trim();
+    const filtered = allEvents.filter(event => {
+      const title = (event.title || '').toLowerCase();
+      const description = (event.description || '').toLowerCase();
+      const location = (event.location || '').toLowerCase();
+      
+      return title.includes(query) || 
+             description.includes(query) || 
+             location.includes(query);
+    });
+    
+    setEvents(filtered);
+  }, [searchQuery, allEvents]);
 
   /**
    * Create a new event
@@ -260,6 +285,7 @@ function App() {
           onMenuToggle={handleMenuToggle}
           onDateChange={setCurrentDate}
           isSidebarOpen={isSidebarOpen}
+          onSearchChange={setSearchQuery}
         />
         
         <div className="calendar-container">

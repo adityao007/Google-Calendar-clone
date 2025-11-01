@@ -11,10 +11,24 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #fafbfc 25%, #ffffff 50%, #fafbfc 75%, #f8f9fa 100%);
+  background-size: 200% 200%;
   background-attachment: fixed;
+  animation: gradientShift 20s ease infinite;
   color: #202124;
   line-height: 1.6;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 code {
